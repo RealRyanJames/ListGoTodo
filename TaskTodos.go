@@ -14,12 +14,29 @@ func appendMessage(message string) string {
 
 }
 
+func emptyFile(args []string) string {
+
+	if args[1] == "-e" {
+		now := time.Now()
+		file, _ := os.Create(strconv.Itoa(int(now.Month())) + "-" + strconv.Itoa(now.Day()) + "-" + strconv.Itoa(now.Year()) + ".txt")
+		file.WriteString(read_typed())
+
+	}
+
+	return args[1]
+}
+
 func copy_files_text() {
 	now := time.Now()
 	file, err := os.Create(strconv.Itoa(int(now.Month())) + "-" + strconv.Itoa(now.Day()) + "-" + strconv.Itoa(now.Year()) + ".txt")
 	file.WriteString(read_typed())
-	if err != nil {
-		fmt.Println(err)
+
+	err_handle := ErrorHandle{
+		e: err,
+	}
+
+	if err_handle.e != nil {
+		fmt.Println(err_handle.e.Error())
 	}
 
 }
@@ -57,6 +74,15 @@ func main() {
 
 	for {
 
+		if len(Get(args[0])) < 1 {
+
+			fmt.Println(strings.ToUpper("You Didn't Pass Arguments"))
+			emptyFile(args)
+		} else if Get(args[1]) == "-e" {
+			emptyFile(args)
+
+		}
+
 		if Get(args[1]) == strings.ToUpper("y") {
 
 			copy_files_text()
@@ -67,6 +93,7 @@ func main() {
 			copy_files_text()
 			break
 		}
+
 	}
 
 	fmt.Printf("%s", appendMessage("Completed"))
