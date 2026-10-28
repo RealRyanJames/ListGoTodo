@@ -37,9 +37,28 @@ func read_typed() string {
 
 }
 
+func Get(el string) string {
+	arg := fmt.Sprintf("%s", el)
+	return arg
+}
+
 func main() {
 
-	copy_files_text()
+	args := os.Args
+
+	for {
+
+		if Get(args[1]) == strings.ToUpper("y") {
+
+			copy_files_text()
+			break
+
+		} else {
+
+			copy_files_text()
+			break
+		}
+	}
 
 	fmt.Printf("%s", appendMessage("Completed"))
 
