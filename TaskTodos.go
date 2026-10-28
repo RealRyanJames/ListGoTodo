@@ -27,8 +27,13 @@ func copy_files_text() {
 func read_typed() string {
 	pth := "Tasks/todos.txt"
 	content, err := os.ReadFile(pth)
-	if err != nil {
-		fmt.Println(err)
+
+	err_handle := ErrorHandle{
+		e: err,
+	}
+
+	if err_handle.e != nil {
+		fmt.Println(err_handle.e.Error())
 	}
 
 	fmt.Println(string(content))
@@ -40,6 +45,10 @@ func read_typed() string {
 func Get(el string) string {
 	arg := fmt.Sprintf("%s", el)
 	return arg
+}
+
+type ErrorHandle struct {
+	e error
 }
 
 func main() {
