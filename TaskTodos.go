@@ -4,8 +4,15 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
+
+func appendMessage(message string) string {
+	str := fmt.Sprintf("%s", strings.ToUpper(message))
+	return str
+
+}
 
 func copy_files_text() {
 	now := time.Now()
@@ -18,7 +25,7 @@ func copy_files_text() {
 }
 
 func read_typed() string {
-	pth := "todos.txt"
+	pth := "Tasks/todos.txt"
 	content, err := os.ReadFile(pth)
 	if err != nil {
 		fmt.Println(err)
@@ -31,5 +38,9 @@ func read_typed() string {
 }
 
 func main() {
+
 	copy_files_text()
+
+	fmt.Printf("%s", appendMessage("Completed"))
+
 }
